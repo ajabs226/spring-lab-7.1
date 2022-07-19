@@ -1,0 +1,42 @@
+package co.grandcircus.springdatalab;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
+@Controller
+public class GradeController {
+
+	@Autowired
+	private GradeRepository repo;
+	
+	@RequestMapping("/")
+	public String index() {
+		return "redirect:/homePage";
+	}
+	
+	@RequestMapping("homePage")	
+	public String showHomePage(Model model) {
+		List<Grade> grades = repo.findAll();
+		model.addAttribute("grades", grades);
+		return "homePage";	
+}
+	
+	@RequestMapping("addGrade")
+	public String showAddGrade() {
+		return "addGrade";
+	}
+	
+	@RequestMapping("confirmGrade")
+	public String showConfirmGrade() {
+		return "confirmGrade";
+	}
+	
+}

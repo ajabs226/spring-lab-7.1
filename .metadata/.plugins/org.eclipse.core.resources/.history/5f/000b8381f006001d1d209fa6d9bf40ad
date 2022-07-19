@@ -1,0 +1,19 @@
+package repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import co.grandcircus.springdatalab.Grade;	
+
+@Repository
+public interface GradeRepository extends MongoRepository<Grade, String>{
+	List<Grade> findAll();	
+	Optional<Grade> findByName(String name);
+	List<Grade> findByType(String type);
+	List<Grade> findByScore(double score);
+}	
+	
+
